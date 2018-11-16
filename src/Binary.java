@@ -13,23 +13,22 @@ public class Binary {
     private List<Integer> binaryNumberAsList;
 
     public Binary(int n) {
+        if (n < 0)
+            throw new IllegalArgumentException("Integer must be >= 0");
         binaryNumberAsList = new ArrayList<>();
-        if (!isInitialized(n)) throw new IllegalArgumentException("Integer must be > 0");
+        initialize(n);
     }
 
-    private boolean isInitialized(int n) {
-        if (n <= 0)
-            return false;
+    private void initialize(int n) {
+        if (n == 0) {
+            push(n);
+        }
         else {
             while (n > 0) {
                 int remainder = n % 2;
-                //                System.out.println(n + " % 2 = " + remainder);
                 n = n / 2;
-                //                System.out.println("n = " + n);
-
                 push(remainder);
             }
-            return true;
         }
     }
 
@@ -51,7 +50,7 @@ public class Binary {
      * @return binary number as string
      */
     public String getBinaryString() {
-        return binaryNumberAsList.stream().map(i -> String.valueOf(i)).collect(Collectors.joining());
+        return binaryNumberAsList.stream().map(String::valueOf).collect(Collectors.joining());
     }
 
     public String getExpression() {

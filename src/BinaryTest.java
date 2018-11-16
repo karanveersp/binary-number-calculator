@@ -16,7 +16,6 @@ public class BinaryTest {
             System.out.printf("%d as a binary number is: %s%n", n, binary.getBinaryString());
             System.out.printf("Consecutive 1s: %d%n", binary.getConsecutive1s());
             System.out.printf("%s%n%n", binary.getExpression());
-
         } while (n >= 0);
     }
 }
