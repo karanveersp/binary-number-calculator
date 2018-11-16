@@ -71,11 +71,7 @@ public class Binary {
         return String.join(" + ",binaryString);
     }
 
-    public int getConsecutive1s() {
-        return consecutive1s();
-    }
-
-    private int consecutive1s (){
+    public int getConsecutive1s (){
         int count = 0;
         int maxCount = 0;
 
