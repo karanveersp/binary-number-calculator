@@ -1,6 +1,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * @author Karanveer Plaha
@@ -19,6 +20,47 @@ public class Binary {
         initialize(n);
     }
 
+    /**
+     * This static method can be used get the decimal
+     * value of a binary string.
+     * @param binaryString String
+     * @return integer
+     */
+    public static int toDecimal(String binaryString) {
+        if (binaryString == null || binaryString.isEmpty())
+            return 0;
+
+        // reverse the binary string
+        binaryString = new StringBuilder(binaryString).reverse().toString();
+
+        // convert binary string to int array
+        int[] binaryArray = Stream.of(binaryString.split(""))
+                                  .mapToInt(Integer::valueOf)
+                                  .toArray();
+
+        int sum = 0;
+        for (int i = 0; i < binaryArray.length; i++) {
+            sum += binaryArray[i] * ((int) Math.pow(2, i));
+        }
+        return sum;
+    }
+
+    /**
+     * This static method can be used to get the decimal
+     * value of a Binary object.
+     * @param binaryNumber Binary object
+     * @return integer
+     */
+    public static int toDecimal(Binary binaryNumber) {
+        // call the string parameter version
+        return toDecimal(binaryNumber != null ? binaryNumber.getBinaryString() : "");
+    }
+
+    /**
+     * This method initializes the binary number list from
+     * the given integer n.
+     * @param n int
+     */
     private void initialize(int n) {
         if (n == 0) {
             push(n);
@@ -32,13 +74,22 @@ public class Binary {
         }
     }
 
+    /**
+     * This custom push method makes the
+     * list field work like a stack.
+     * If the list is empty, we add the element.
+     * Else we use the parameterized add method with the arguments (0, n)
+     * to say "add n at index 0". The list will automatically shift its existing content
+     * one index to the right and n will be inserted to the "front"/"top" of the list.
+     * @param n int
+     */
     private void push(int n) {
         if (binaryNumberAsList.isEmpty()) {
             // Add first element
             binaryNumberAsList.add(n);
         } else {
-            // Add new element to 0th place and shift existing element to the right
-            // This imitates a stack representation where the most recent element added is the first
+            // Add n to 0th place and shift existing element to the right
+            // This imitates a stack representation where the most recently added element is the first element
             binaryNumberAsList.add(0, n);
         }
     }
